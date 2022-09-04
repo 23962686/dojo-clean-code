@@ -89,11 +89,11 @@ def main():
 
     # Account already exists
     if "ciphered_vault" in files:
-        pList, master_password = handle_login_existing_account()
+        plist, master_password = handle_login_existing_account()
 
     # Account creation phase
     else:
-        pList, master_password = handle_register_new_account()
+        plist, master_password = handle_register_new_account()
 
     while True:
         console.rule()
@@ -103,40 +103,41 @@ def main():
         option = Prompt.ask("What do you want to do ? ")
 
         if option == "1":
-            pList = handle_add_account(pList, master_password)
+            plist = handle_add_account(plist, master_password)
         elif option == "2":
             a = Prompt.ask("Enter account website name").lower()
             console.print("\n")
 
-            temp = 0
+
             b = None
-            for i in range(len(pList)):
-                if pList[i]["website_name"] == a:
-                    b = pList[i]
+            for i in range(len(plist)):
+                if plist[i]["website_name"] == a:
+                    b = plist[i]
 
             console.print(b)
 
         elif option == "3":
-            l = len(pList)
+            l = len(plist)
             a = Prompt.ask("Enter website name").lower()
             console.print("\n")
 
-            temp1 = 0
-            for i in range(0, len(pList)):
-                if pList[i]["website_name"] == a:
-                    del pList[i]
+
+            for i in range(0, len(plist)):
+                if plist[i]["website_name"] == a:
+                    del plist[i]
                     break
 
-            if len(pList) == l:
+            if len(plist) == l:
                 console.print("No accounts were found matching this website name!")
             else:
                 console.print("Account {} successfully deleted from vault".format(a))
+                write(plist, master_password)
 
         elif option == "4":
             console.print("Quitting...")
             quit()
         elif option == "5":
-            console.print(pList)
+            console.print(plist)
         elif option == "6":
             pass
         else:
